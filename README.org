@@ -1,0 +1,211 @@
+#+title: Azure AI Engineer Training
+#+author: outcastgeek
+#+date: <2024-07-03 Wed>
+
+
+* Setup
+
+Let us [[https://learn.microsoft.com/en-us/azure/ai-services/multi-service-resource?tabs=windows&pivots=azcli][create a multi-service resource for Azure AI services]].
+
+** Installation
+
+
+#+begin_src bash
+
+brew install azure-cli
+
+#+end_src
+
+** Authentication
+
+#+begin_src bash
+
+az login
+
+#+end_src
+
+** Create Azure AI services multi-service account resource
+
+Choose your resource group location:
+
+#+begin_src bash
+
+az account list-locations --query "[].{Region:name}" --out table
+
+#+end_src
+
+#+RESULTS:
+| Region              |
+| ------------------- |
+| eastus              |
+| southcentralus      |
+| westus2             |
+| westus3             |
+| australiaeast       |
+| southeastasia       |
+| northeurope         |
+| swedencentral       |
+| uksouth             |
+| westeurope          |
+| centralus           |
+| southafricanorth    |
+| centralindia        |
+| eastasia            |
+| japaneast           |
+| koreacentral        |
+| canadacentral       |
+| francecentral       |
+| germanywestcentral  |
+| italynorth          |
+| norwayeast          |
+| polandcentral       |
+| spaincentral        |
+| switzerlandnorth    |
+| mexicocentral       |
+| uaenorth            |
+| brazilsouth         |
+| israelcentral       |
+| qatarcentral        |
+| centralusstage      |
+| eastusstage         |
+| eastus2stage        |
+| northcentralusstage |
+| southcentralusstage |
+| westusstage         |
+| westus2stage        |
+| asia                |
+| asiapacific         |
+| australia           |
+| brazil              |
+| canada              |
+| europe              |
+| france              |
+| germany             |
+| global              |
+| india               |
+| israel              |
+| italy               |
+| japan               |
+| korea               |
+| newzealand          |
+| norway              |
+| poland              |
+| qatar               |
+| singapore           |
+| southafrica         |
+| sweden              |
+| switzerland         |
+| uae                 |
+| uk                  |
+| unitedstates        |
+| unitedstateseuap    |
+| eastasiastage       |
+| southeastasiastage  |
+| brazilus            |
+| eastus2             |
+| eastusstg           |
+| northcentralus      |
+| westus              |
+| japanwest           |
+| jioindiawest        |
+| centraluseuap       |
+| eastus2euap         |
+| westcentralus       |
+| southafricawest     |
+| australiacentral    |
+| australiacentral2   |
+| australiasoutheast  |
+| jioindiacentral     |
+| koreasouth          |
+| southindia          |
+| westindia           |
+| canadaeast          |
+| francesouth         |
+| germanynorth        |
+| norwaywest          |
+| switzerlandwest     |
+| ukwest              |
+| uaecentral          |
+| brazilsoutheast     |
+
+
+Create a new resource group
+
+#+begin_src bash
+
+az group create --name ai-services-resource-group --location canadacentral
+
+#+end_src
+
+#+RESULTS:
+| {                    |                                                                                                  |
+| "id":                | "/subscriptions/bb74fdfa-fbf2-47ef-9f4b-565191b382cf/resourceGroups/ai-services-resource-group", |
+| "location":          | "canadacentral",                                                                                 |
+| "managedBy":         | null,                                                                                            |
+| "name":              | "ai-services-resource-group",                                                                    |
+| "properties":        | {                                                                                                |
+| "provisioningState": | Succeeded                                                                                        |
+| },                   |                                                                                                  |
+| "tags":              | null,                                                                                            |
+| "type":              | Microsoft.Resources/resourceGroups                                                               |
+| }                    |                                                                                                  |
+
+
+List available Azure AI services "kinds"
+
+
+#+begin_src bash
+
+az cognitiveservices account list-kinds
+
+#+end_src
+
+#+RESULTS:
+| [                                      |
+| "AIServices",                          |
+| "AnomalyDetector",                     |
+| "CognitiveServices",                   |
+| "ComputerVision",                      |
+| "ContentModerator",                    |
+| "ContentSafety",                       |
+| "ConversationalLanguageUnderstanding", |
+| "CustomVision.Prediction",             |
+| "CustomVision.Training",               |
+| "Face",                                |
+| "FormRecognizer",                      |
+| "HealthInsights",                      |
+| "ImmersiveReader",                     |
+| "Internal.AllInOne",                   |
+| "LUIS.Authoring",                      |
+| "LanguageAuthoring",                   |
+| "MetricsAdvisor",                      |
+| "OpenAI",                              |
+| "Personalizer",                        |
+| "QnAMaker.v2",                         |
+| "SpeechServices",                      |
+| "TextAnalytics",                       |
+| TextTranslation                        |
+| ]                                      |
+
+
+Add a new resource to the resource group.
+Also checkout the [[https://learn.microsoft.com/en-us/azure/search/search-sku-tier#tier-descriptions][Tier Description]] to learn about the Skus and make sure you agree to the terms of Responsible AI before proceeding.
+
+
+#+begin_src bash
+
+az cognitiveservices account create --name ai-multi-svc-resource --resource-group ai-services-resource-group --kind CognitiveServices --sku S0 --location canadacentral --yes
+
+#+end_src
+
+#+RESULTS:
+
+* [[https://github.com/MicrosoftLearning/mslearn-ai-services][MS AI Services Labs]]
+
+Clone the repository and follow the instructions
+
+#+begin_src bash
+
+git clone https://github.com/MicrosoftLearning/mslearn-ai-services.git # clone the repository
+
+#+end_src
